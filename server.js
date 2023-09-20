@@ -4,8 +4,8 @@ const colors = require("colors")
 const { exec } = require("child_process")
 const fs = require("fs")
 const jszip = require("jszip")
-const https = require("https").Server(app)
-const io = require('socket.io')(https)
+const http = require("http").Server(app)
+const io = require('socket.io')(http)
 
 
 app.set("view-engine", "ejs")
@@ -21,7 +21,7 @@ app.get("/download", function (req, res) {
     res.render(__dirname + "/views/download.ejs")
     const url = req.query.url
     const format = req.query.format
-    const command = `yt-dlp -x -i -v --audio-format ${format} -o "${__dirname + "/temp/%(title)s"}" --yes-playlist "${url}"`;
+    const command = `./yt-dlp -x -i -v --audio-format ${format} -o "${__dirname + "/temp/%(title)s"}" --yes-playlist "${url}"`;
     exec(command, function (error, stdout, stderr) {
         if (error) {
           console.error(`Chyba: ${error}`);
@@ -48,8 +48,8 @@ app.get("/download", function (req, res) {
       });
 })
 
-const port = 5000
+const port = 80
 
-https.listen(port, function () {
+http.listen(port, function () {
     console.log(colors.green("[SERVER] ") + `Server běží na portu ${port}`)
 })

@@ -19,7 +19,7 @@
         </form>
     </div>
     <script>
-        const socket = io('http://localhost:5000');
+        const socket = io('https://ypad.daneeskripter.dev/');
       
         socket.on('status', (data) => {
         const statusElement = document.getElementById('status');
