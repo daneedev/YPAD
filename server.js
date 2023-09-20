@@ -4,8 +4,8 @@ const colors = require("colors")
 const { exec } = require("child_process")
 const fs = require("fs")
 const jszip = require("jszip")
-const http = require("http").Server(app)
-const io = require('socket.io')(http)
+const https = require("https").Server(app)
+const io = require('socket.io')(https)
 
 
 app.set("view-engine", "ejs")
@@ -50,6 +50,6 @@ app.get("/download", function (req, res) {
 
 const port = 5000
 
-http.listen(port, function () {
+https.listen(port, function () {
     console.log(colors.green("[SERVER] ") + `Server běží na portu ${port}`)
 })
